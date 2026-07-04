@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FUSS美容室 HP改善計画書</title>
+<style>
+  :root{
+    --ink:#1f2328;
+    --sub:#6b7280;
+    --line:#e7e7e4;
+    --bg:#ffffff;
+    --soft:#f7f7f5;
+    --soft2:#fafaf8;
+    --accent:#111111;
+    --gold:#b79268;
+    --ok:#2f7d5b;
+    --warn:#b4552a;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 30px rgba(0,0,0,.05);
+    --max:980px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:72px}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.85;
+    font-size:15px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+
+  /* ===== 固定ナビ（提案するクイックアクセスの見本も兼ねる）===== */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.86);
+    backdrop-filter:saturate(180%) blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width:var(--max);margin:auto;padding:12px 20px;
+    display:flex;align-items:center;gap:16px;justify-content:space-between;
+  }
+  .brand{font-weight:700;letter-spacing:1px;font-size:15px;white-space:nowrap}
+  .brand small{display:block;font-weight:400;color:var(--sub);font-size:11px;letter-spacing:.5px}
+  .nav{display:flex;gap:4px;flex-wrap:wrap}
+  .nav a{
+    text-decoration:none;color:var(--sub);font-size:13px;
+    padding:7px 12px;border-radius:999px;transition:.15s;white-space:nowrap;
+  }
+  .nav a:hover{background:var(--soft);color:var(--ink)}
+
+  /* ===== ヘッダー ===== */
+  header.hero{
+    max-width:var(--max);margin:auto;padding:64px 20px 40px;
+  }
+  .eyebrow{
+    display:inline-block;font-size:12px;letter-spacing:2px;color:var(--gold);
+    font-weight:700;margin-bottom:14px;
+  }
+  header.hero h1{
+    font-size:clamp(28px,5vw,44px);line-height:1.35;margin:0 0 18px;font-weight:800;letter-spacing:.5px;
+  }
+  .lead{font-size:16px;color:var(--sub);max-width:640px}
+  .meta-row{
+    display:flex;gap:24px;flex-wrap:wrap;margin-top:28px;
+    padding-top:24px;border-top:1px solid var(--line);color:var(--sub);font-size:13px;
+  }
+  .meta-row b{color:var(--ink);font-weight:600;display:block;font-size:12px;letter-spacing:.5px;margin-bottom:2px}
+
+  /* ===== レイアウト ===== */
+  main{max-width:var(--max);margin:auto;padding:0 20px 120px}
+  section.block{padding:44px 0;border-top:1px solid var(--line)}
+  .kicker{font-size:12px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:8px}
+  h2{font-size:24px;margin:0 0 8px;font-weight:800;letter-spacing:.5px}
+  h2 .no{color:var(--line);font-weight:800;margin-right:10px}
+  .section-desc{color:var(--sub);margin:0 0 26px;max-width:680px}
+  h3{font-size:16px;margin:28px 0 10px;font-weight:700}
+
+  /* ===== カード・グリッド ===== */
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .card{
+    background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;box-shadow:var(--shadow);
+  }
+  .card h4{margin:0 0 8px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .card p{margin:0;color:var(--sub);font-size:14px}
+  .chip{
+    display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;
+    padding:3px 10px;border-radius:999px;letter-spacing:.5px;
+  }
+  .chip.must{background:#fbece6;color:var(--warn)}
+  .chip.idea{background:#eef4f0;color:var(--ok)}
+  .num{
+    width:26px;height:26px;flex:none;border-radius:50%;background:var(--ink);color:#fff;
+    display:grid;place-items:center;font-size:13px;font-weight:700;
+  }
+
+  /* ===== 現状課題（Before）===== */
+  .issue{display:flex;gap:14px;padding:16px 0;border-bottom:1px dashed var(--line)}
+  .issue:last-child{border-bottom:none}
+  .issue .mark{color:var(--warn);font-weight:800;flex:none;width:20px}
+  .issue b{font-weight:700}
+  .issue span{color:var(--sub);display:block;font-size:14px}
+
+  /* ===== 表 ===== */
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
+  table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+  th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);font-weight:700;font-size:12px;letter-spacing:.5px;color:var(--sub)}
+  tr:last-child td{border-bottom:none}
+  td .tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;white-space:nowrap}
+  .tag.p1{background:#fbece6;color:var(--warn)}
+  .tag.p2{background:#fff5e6;color:#9a6a12}
+  .tag.p3{background:#eef4f0;color:var(--ok)}
+
+  /* ===== ワイヤーフレーム ===== */
+  .wire-set{display:grid;gap:24px;grid-template-columns:1.4fr 1fr}
+  .device{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--soft2);box-shadow:var(--shadow)}
+  .device .bar{background:var(--soft);padding:8px;text-align:center;font-size:11px;color:var(--sub);border-bottom:1px solid var(--line)}
+  .screen{padding:14px;display:flex;flex-direction:column;gap:9px}
+  .ph{background:#fff;border:1px solid var(--line);border-radius:8px}
+  .ph.hero-ph{height:120px;background:linear-gradient(135deg,#efece7,#f7f5f2);display:grid;place-items:center;color:#b9b3aa;font-size:12px;letter-spacing:1px}
+  .ph.line{height:12px;width:70%}
+  .ph.line.s{width:45%}
+  .ph.line.l{width:90%}
+  .ph.block{height:46px}
+  .ph.grid3{height:60px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;border:none;background:none}
+  .ph.grid3 div{background:#fff;border:1px solid var(--line);border-radius:8px}
+  .stickytab{
+    display:flex;gap:6px;background:var(--ink);border-radius:10px;padding:7px;margin-top:4px;
+  }
+  .stickytab div{flex:1;text-align:center;color:#fff;font-size:10px;padding:6px 2px;border-radius:6px;font-weight:600}
+  .stickytab div.hot{background:var(--gold)}
+  .wire-note{font-size:13px;color:var(--sub)}
+  .wire-note ul{padding-left:18px;margin:8px 0}
+  .wire-note li{margin:6px 0}
+
+  /* スマホ枠 */
+  .phone{max-width:230px;margin:auto;border:8px solid var(--ink);border-radius:32px;overflow:hidden;background:#fff}
+  .phone .notch{height:18px;background:var(--ink)}
+  .phone .screen{padding:10px;gap:7px}
+  .phone .fixed-bottom{
+    position:sticky;bottom:0;display:flex;gap:5px;background:#fff;border-top:1px solid var(--line);
+    padding:7px 5px;margin:6px -10px -10px;
+  }
+  .phone .fixed-bottom div{
+    flex:1;text-align:center;font-size:9px;padding:6px 2px;border-radius:8px;background:var(--soft);font-weight:700;color:var(--sub)
+  }
+  .phone .fixed-bottom div.hot{background:var(--gold);color:#fff}
+
+  /* ===== フォーム見本 ===== */
+  .formcard{border:1px solid var(--line);border-radius:var(--radius);padding:26px;background:var(--soft2)}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+  .field label .req{color:var(--warn);font-size:11px;margin-left:6px}
+  .field input,.field select,.field textarea{
+    width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:14px;background:#fff;
+  }
+  .field textarea{min-height:88px;resize:vertical}
+  .form-actions{margin-top:8px}
+  .btn-primary{
+    display:inline-block;background:var(--ink);color:#fff;border:none;
+    padding:13px 30px;border-radius:999px;font-weight:700;font-size:15px;cursor:pointer;
+  }
+  .form-note{font-size:12px;color:var(--sub);margin-top:12px}
+
+  /* ===== タイムライン ===== */
+  .phase{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border-bottom:none}
+  .phase .when{flex:none;width:96px;font-weight:800;font-size:13px}
+  .phase .when span{display:block;color:var(--sub);font-weight:400;font-size:11px}
+  .phase .what b{font-weight:700}
+  .phase .what p{margin:4px 0 0;color:var(--sub);font-size:14px}
+
+  /* ===== 効果KPI ===== */
+  .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .kpi .card{text-align:center}
+  .kpi .big{font-size:30px;font-weight:800;letter-spacing:.5px}
+  .kpi .big small{font-size:14px;color:var(--sub);font-weight:600}
+
+  .callout{
+    background:var(--soft);border-radius:var(--radius);padding:20px 22px;font-size:14px;color:var(--sub);
+    border:1px solid var(--line);
+  }
+  .callout b{color:var(--ink)}
+
+  ul.clean{list-style:none;padding:0;margin:0}
+  ul.clean li{padding:10px 0 10px 26px;position:relative;border-bottom:1px solid var(--line);font-size:14px}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
+
+  footer.doc{border-top:1px solid var(--line);padding:30px 20px;text-align:center;color:var(--sub);font-size:12px;max-width:var(--max);margin:auto}
+
+  @media(max-width:760px){
+    .nav{display:none}
+    .g2,.g3,.wire-set,.kpi{grid-template-columns:1fr}
+    .meta-row{gap:16px}
+    header.hero{padding:40px 20px 30px}
+  }
+</style>
+</head>
+<body>
+
+<!-- 固定ナビ：提案する「クイックアクセス」の実演も兼ねる -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">FUSS美容室<small>ホームページ改善計画書</small></div>
+    <nav class="nav">
+      <a href="#goal">目的</a>
+      <a href="#current">現状課題</a>
+      <a href="#design">デザイン</a>
+      <a href="#quick">クイックアクセス</a>
+      <a href="#recruit">求人フォーム</a>
+      <a href="#ideas">追加提案</a>
+      <a href="#wire">構成案</a>
+      <a href="#schedule">進め方</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <span class="eyebrow">PROPOSAL / 2026</span>
+  <h1>「見た目」から「予約と応募が増える」<br>ホームページへ</h1>
+  <p class="lead">
+    現行サンプルの内容（コンセプト・料金・アクセス等）はそのまま活かしつつ、
+    <b>白基調のデザイン刷新</b>・<b>スマホ最適化</b>・<b>主要導線への即アクセス</b>・<b>求人フォーム新設</b>を柱に、
+    <b>集客と採用の2つの導線</b>を強化するための計画書です。
+  </p>
+  <div class="meta-row">
+    <div><b>目的</b>集客導線 × 求人導線の強化</div>
+    <div><b>対象</b>fuss.html（1ページ構成）</div>
+    <div><b>使用技術</b>HTML / CSS / JavaScript(jQuery)</div>
+    <div><b>作成日</b>2026-07-04</div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ========== 目的 ========== -->
+  <section class="block" id="goal">
+    <div class="kicker">01 — OBJECTIVE</div>
+    <h2>このリニューアルで達成したいこと</h2>
+    <p class="section-desc">
+      「情報が載っているサイト」から「行動してもらえるサイト」へ。ゴールは大きく2つです。
+    </p>
+    <div class="grid g2">
+      <div class="card">
+        <h4><span class="num">1</span>集客導線の強化</h4>
+        <p>訪問者を迷わせず、<b>予約・電話・アクセス・料金</b>という「今すぐ知りたい／今すぐ動きたい」情報へ1タップで到達させ、予約ページへの遷移率を高めます。</p>
+      </div>
+      <div class="card">
+        <h4><span class="num">2</span>求人導線の強化</h4>
+        <p>現状はゼロの<b>採用の受け皿</b>を新設。募集要項＋かんたん応募フォームを用意し、「気になった人がその場で応募できる」状態をつくります。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 現状課題 ========== -->
+  <section class="block" id="current">
+    <div class="kicker">02 — AS-IS</div>
+    <h2>現状サンプルの課題</h2>
+    <p class="section-desc">内容は良いのに「伝わり方」と「動線」で機会を損失している状態です。</p>
+    <div class="grid g2">
+      <div class="card">
+        <div class="issue"><span class="mark">!</span><div><b>主要情報が縦一列で埋もれている</b><span>予約・料金・TEL・アクセスに辿り着くまでスクロールが必要。スマホでは特に離脱の原因に。</span></div></div>
+        <div class="issue"><span class="mark">!</span><div><b>常時表示のナビ・予約ボタンがない</b><span>ページ下部まで読んで初めて予約導線に出会う構造。「今すぐ予約」の取りこぼし。</span></div></div>
+        <div class="issue"><span class="mark">!</span><div><b>求人の受け皿がゼロ</b><span>採用ページも応募窓口も存在せず、人材の問い合わせを一切拾えていない。</span></div></div>
+      </div>
+      <div class="card">
+        <div class="issue"><span class="mark">!</span><div><b>視覚的な魅力・世界観が弱い</b><span>写真・スタイル事例・スタッフの顔が乏しく、来店イメージが湧きにくい。</span></div></div>
+        <div class="issue"><span class="mark">!</span><div><b>スマホ最適化が不十分</b><span>文字サイズ・余白・タップ領域がPC寄り。多数を占めるスマホ来訪の体験が最適でない。</span></div></div>
+        <div class="issue"><span class="mark">!</span><div><b>SEO/MEO・SNS連携が未整備</b><span>meta情報・構造化データ・Instagram等の連携がなく、検索と回遊で不利。</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== デザイン方針 ========== -->
+  <section class="block" id="design">
+    <div class="kicker">03 — DESIGN</div>
+    <h2>デザイン方針：白基調 × レスポンシブ</h2>
+    <p class="section-desc">
+      清潔感と上質さを伝える<b>ホワイトベース</b>に、木目を思わせるアクセント1色。PC・スマホどちらでも崩れない設計にします。
+    </p>
+    <div class="grid g3">
+      <div class="card">
+        <h4>🤍 白基調・余白設計</h4>
+        <p>背景は白（#fff）を主役に、罫線とごく淡いグレーで情報を整理。差し色はゴールド／木目系1色に絞り、上品で写真映えする画面に。</p>
+      </div>
+      <div class="card">
+        <h4>📱 モバイルファースト</h4>
+        <p>スマホ幅を基準に設計し、PCは広がるだけ。タップ領域44px以上、読みやすい文字サイズと行間、片手で完結する操作性。</p>
+      </div>
+      <div class="card">
+        <h4>⚡ 軽さ・表示速度</h4>
+        <p>画像はwebpで軽量化、遅延読み込み（lazy）。外部ライブラリはjQuery程度に留め、素早く開くページに。</p>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:16px">
+      <b>この計画書自体が方針の見本です。</b> 白基調・上部固定ナビ・スマホでのレイアウト折返しなど、提案する要素を実際に体感いただけるよう作っています。
+    </div>
+  </section>
+
+  <!-- ========== クイックアクセス（マスト） ========== -->
+  <section class="block" id="quick">
+    <div class="kicker">04 — KEY FEATURE</div>
+    <h2>クイックアクセス導線 <span class="chip must">MUST</span></h2>
+    <p class="section-desc">
+      「予約・料金・アクセス・TEL」へいつでも1タップ。<b>PCは上部固定ヘッダー</b>、<b>スマホは画面下部の固定タブバー</b>で常時表示します。
+    </p>
+
+    <div class="wire-set">
+      <!-- PC -->
+      <div>
+        <div class="device">
+          <div class="bar">PC ｜ 上部固定ナビ</div>
+          <div class="screen">
+            <div class="stickytab">
+              <div>FUSS</div><div class="hot">予約</div><div>料金</div><div>アクセス</div><div>TEL</div>
+            </div>
+            <div class="ph hero-ph">HERO / メインビジュアル</div>
+            <div class="ph line l"></div>
+            <div class="ph line"></div>
+            <div class="ph grid3"><div></div><div></div><div></div></div>
+          </div>
+        </div>
+      </div>
+      <!-- スマホ -->
+      <div>
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="screen">
+            <div class="ph hero-ph" style="height:90px">HERO</div>
+            <div class="ph line l"></div>
+            <div class="ph line s"></div>
+            <div class="ph block"></div>
+            <div class="ph line"></div>
+            <div class="fixed-bottom">
+              <div class="hot">予約</div><div>料金</div><div>アクセス</div><div>TEL</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wire-note" style="margin-top:22px">
+      <div class="grid g2">
+        <div class="card">
+          <h4>挙動の仕様</h4>
+          <ul class="clean">
+            <li><b>予約</b>：楽天ビューティの予約ページを新規タブで開く（外部遷移）</li>
+            <li><b>料金・アクセス</b>：ページ内の該当セクションへスムーズスクロール</li>
+            <li><b>TEL</b>：<code>tel:</code>リンクでスマホは即発信、PCは番号を表示</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>実装イメージ</h4>
+          <ul class="clean">
+            <li>スマホ：<code>position:fixed; bottom:0</code> の4分割タブバー</li>
+            <li>PC：<code>position:sticky; top:0</code> のヘッダーナビ</li>
+            <li>スクロール連動（jQuery）で現在地セクションをハイライト</li>
+            <li>「予約」だけ色を変え最も押されやすく（プライマリ扱い）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 求人フォーム（マスト） ========== -->
+  <section class="block" id="recruit">
+    <div class="kicker">05 — KEY FEATURE</div>
+    <h2>求人・応募フォーム <span class="chip must">MUST</span></h2>
+    <p class="section-desc">
+      採用セクション（募集要項）＋シンプルな応募フォームを新設。送信するとお店のメールへ届く、複雑さのない構成です。別ページ（recruit.html）としても、同一ページ内セクションとしても実装可能です。
+    </p>
+
+    <div class="grid g2" style="align-items:start">
+      <div class="formcard">
+        <h3 style="margin-top:0">応募フォーム（レイアウト見本）</h3>
+        <div class="field"><label>お名前<span class="req">必須</span></label><input type="text" placeholder="山田 花子" disabled></div>
+        <div class="field"><label>電話番号<span class="req">必須</span></label><input type="tel" placeholder="090-0000-0000" disabled></div>
+        <div class="field"><label>メールアドレス<span class="req">必須</span></label><input type="email" placeholder="example@mail.com" disabled></div>
+        <div class="field"><label>応募職種</label>
+          <select disabled><option>スタイリスト</option><option>アシスタント</option><option>業務委託</option><option>その他</option></select>
+        </div>
+        <div class="field"><label>ご経験・メッセージ</label><textarea placeholder="経験年数や希望などをご記入ください" disabled></textarea></div>
+        <div class="form-actions"><span class="btn-primary">応募する（送信）</span></div>
+        <p class="form-note">※ 見本のため入力は無効化しています。</p>
+      </div>
+
+      <div>
+        <div class="card" style="margin-bottom:16px">
+          <h4>送信方式の選択肢</h4>
+          <ul class="clean">
+            <li><b>推奨：フォームサービス連携</b>（Formspree / Googleフォーム / FormRun 等）— サーバー不要で店舗メールへ届く。迷惑メール対策・自動返信も可</li>
+            <li><b>mailto方式</b>— 最も簡易。訪問者のメーラーが起動（環境依存があり補助的）</li>
+            <li><b>PHP等が使える場合</b>— 自前の送信スクリプトで完全自由（要サーバー）</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>備える要素</h4>
+          <ul class="clean">
+            <li>募集要項（職種・給与・勤務時間・歓迎スキル・お店の魅力）</li>
+            <li>必須項目の入力チェック（jQueryでバリデーション）</li>
+            <li>送信完了メッセージ／サンクス表示</li>
+            <li>個人情報の取り扱いに関する一文＋同意チェック</li>
+            <li>スパム対策（簡易なbot除け／reCAPTCHA等）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 追加提案 ========== -->
+  <section class="block" id="ideas">
+    <div class="kicker">06 — RECOMMENDATIONS</div>
+    <h2>集客・求人を伸ばす追加提案 <span class="chip idea">IDEA</span></h2>
+    <p class="section-desc">マスト要件に加え、費用対効果の高い施策を優先度つきでご提案します。実施は選択いただけます。</p>
+
+    <h3>集客を伸ばす</h3>
+    <div class="grid g3">
+      <div class="card"><h4>📸 スタイルギャラリー</h4><p>ビフォーアフター／得意スタイルの写真集。Instagram連携で更新の手間なく“作品”を見せ、指名・来店動機を作る。</p></div>
+      <div class="card"><h4>🙋 スタッフ紹介</h4><p>顔・人柄・得意分野を掲載。「この人にお願いしたい」を生み、マンツーマンの強みを可視化。</p></div>
+      <div class="card"><h4>⭐ お客様の声・口コミ</h4><p>楽天ビューティ／Googleの口コミを掲載し信頼を担保。星評価は来店の後押しに直結。</p></div>
+      <div class="card"><h4>🎟 初回クーポン・特典</h4><p>「初回カット10%OFF」等を目立たせ、新規のハードルを下げる。予約導線とセットで訴求。</p></div>
+      <div class="card"><h4>💬 LINE公式連携</h4><p>予約・再来店・キャンペーン告知の受け皿。友だち追加ボタンでリピート導線を確保。</p></div>
+      <div class="card"><h4>❓ よくある質問</h4><p>駐車場・支払い方法・子連れ可否など。不安を先回りで解消し予約前の離脱を防ぐ。</p></div>
+    </div>
+
+    <h3>検索・回遊で見つけてもらう（SEO / MEO）</h3>
+    <div class="grid g3">
+      <div class="card"><h4>🔎 meta / OGP整備</h4><p>title・description・OGP画像を設定し、検索結果とSNSシェア時の見え方を最適化。</p></div>
+      <div class="card"><h4>📍 MEO / 構造化データ</h4><p>Googleビジネスプロフィール連携と<code>LocalBusiness</code>構造化データで「新宿御苑前 美容室」の地図検索に強く。</p></div>
+      <div class="card"><h4>📈 アクセス解析</h4><p>GA4等を設置し、どこから来てどこで離脱するかを可視化。改善を数字で回す土台に。</p></div>
+    </div>
+
+    <h3>採用を伸ばす</h3>
+    <div class="grid g3">
+      <div class="card"><h4>💼 働く環境の見せ方</h4><p>給与例・待遇・1日の流れ・スタッフの声を掲載。「応募したくなる理由」を具体化。</p></div>
+      <div class="card"><h4>🔗 応募のしやすさ</h4><p>フォーム＋LINE応募＋電話の複数導線。求人媒体からの流入も受け止める。</p></div>
+      <div class="card"><h4>🖼 サロンの雰囲気</h4><p>店内・チームの写真で職場イメージを伝え、ミスマッチと不安を軽減。</p></div>
+    </div>
+  </section>
+
+  <!-- ========== サイト構成案 ========== -->
+  <section class="block" id="wire">
+    <div class="kicker">07 — STRUCTURE</div>
+    <h2>サイト構成案（1ページ + 求人ページ）</h2>
+    <p class="section-desc">基本は縦1ページのランディング型を踏襲。求人だけ独立ページに分け、上部/下部ナビでどこからでも主要情報へ。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th style="width:30px">#</th><th>セクション</th><th>役割・ねらい</th><th>導線</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>固定ナビ / 予約タブ</td><td>いつでも主要導線へ（集客の要）</td><td>予約・料金・アクセス・TEL</td></tr>
+          <tr><td>2</td><td>ヒーロー（メインビジュアル）</td><td>第一印象・キャッチ・予約ボタン</td><td>→ 予約</td></tr>
+          <tr><td>3</td><td>当店の特徴</td><td>マンツーマン等の強みを訴求</td><td>—</td></tr>
+          <tr><td>4</td><td>スタイルギャラリー <span class="chip idea">IDEA</span></td><td>作品で来店イメージ醸成</td><td>→ Instagram</td></tr>
+          <tr><td>5</td><td>料金</td><td>明朗会計で安心（頻繁に見られる）</td><td>→ 予約</td></tr>
+          <tr><td>6</td><td>スタッフ紹介 <span class="chip idea">IDEA</span></td><td>指名・信頼の獲得</td><td>—</td></tr>
+          <tr><td>7</td><td>お客様の声 <span class="chip idea">IDEA</span></td><td>口コミで背中を押す</td><td>—</td></tr>
+          <tr><td>8</td><td>アクセス / 地図</td><td>来店前に必ず見る情報</td><td>→ Map / TEL</td></tr>
+          <tr><td>9</td><td>店舗情報・FAQ</td><td>営業時間・不安解消</td><td>—</td></tr>
+          <tr><td>10</td><td>予約・電話</td><td>最終CTA</td><td>→ 予約 / TEL</td></tr>
+          <tr><td>11</td><td>採用情報 → 応募フォーム <span class="chip must">MUST</span></td><td>求人導線（別ページ recruit.html）</td><td>→ 応募送信</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ========== 実装優先度 ========== -->
+  <section class="block" id="priority">
+    <div class="kicker">08 — PRIORITY</div>
+    <h2>実装項目と優先度</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>項目</th><th>区分</th><th>優先度</th><th>難易度</th></tr></thead>
+        <tbody>
+          <tr><td>白基調デザインへの全面リニューアル</td><td>マスト</td><td><span class="tag p1">P1 最優先</span></td><td>中</td></tr>
+          <tr><td>PC / スマホ レスポンシブ対応</td><td>マスト</td><td><span class="tag p1">P1 最優先</span></td><td>中</td></tr>
+          <tr><td>クイックアクセス（上部/下部固定ナビ）</td><td>マスト</td><td><span class="tag p1">P1 最優先</span></td><td>中</td></tr>
+          <tr><td>求人ページ＋応募フォーム</td><td>マスト</td><td><span class="tag p1">P1 最優先</span></td><td>中</td></tr>
+          <tr><td>meta / OGP / 構造化データ・表示速度</td><td>提案</td><td><span class="tag p2">P2 推奨</span></td><td>低</td></tr>
+          <tr><td>スタイルギャラリー / Instagram連携</td><td>提案</td><td><span class="tag p2">P2 推奨</span></td><td>低〜中</td></tr>
+          <tr><td>スタッフ紹介 / お客様の声 / FAQ</td><td>提案</td><td><span class="tag p2">P2 推奨</span></td><td>低</td></tr>
+          <tr><td>初回クーポン / LINE公式連携</td><td>提案</td><td><span class="tag p3">P3 任意</span></td><td>低</td></tr>
+          <tr><td>GA4 アクセス解析</td><td>提案</td><td><span class="tag p3">P3 任意</span></td><td>低</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="callout" style="margin-top:16px">
+      <b>技術構成：</b> HTML + CSS + JavaScript(jQuery) のみで完結。外部フレームワーク不要。フォーム送信のみ外部サービス（Googleフォーム / Formspree 等）を利用すればサーバーレスで実現できます。
+    </p>
+  </section>
+
+  <!-- ========== 進め方 ========== -->
+  <section class="block" id="schedule">
+    <div class="kicker">09 — PROCESS</div>
+    <h2>進め方（想定フェーズ）</h2>
+    <div class="phase">
+      <div class="when">STEP 1<span>デザイン設計</span></div>
+      <div class="what"><b>方針確定・ワイヤー / 配色決定</b><p>白基調のトーン、フォント、固定ナビの見せ方を確定。掲載する写真・原稿の洗い出し。</p></div>
+    </div>
+    <div class="phase">
+      <div class="when">STEP 2<span>本体制作</span></div>
+      <div class="what"><b>トップページのレスポンシブ実装</b><p>各セクション＋クイックアクセス（上部/下部固定ナビ）をHTML/CSS/jQueryで構築。</p></div>
+    </div>
+    <div class="phase">
+      <div class="when">STEP 3<span>求人機能</span></div>
+      <div class="what"><b>採用ページ＋応募フォーム実装</b><p>募集要項の作成、フォーム設置、送信テスト（店舗メール着信・自動返信の確認）。</p></div>
+    </div>
+    <div class="phase">
+      <div class="when">STEP 4<span>仕上げ</span></div>
+      <div class="what"><b>SEO / 表示速度 / 各端末チェック</b><p>meta・OGP・構造化データ、画像最適化、iPhone/Android/PCでの表示・動作確認。</p></div>
+    </div>
+    <div class="phase">
+      <div class="when">STEP 5<span>公開・改善</span></div>
+      <div class="what"><b>公開＆解析設置、以降は数字で改善</b><p>GA4で流入・離脱を観測し、クーポンやギャラリー等の追加提案を順次反映。</p></div>
+    </div>
+  </section>
+
+  <!-- ========== 期待効果 ========== -->
+  <section class="block" id="effect">
+    <div class="kicker">10 — IMPACT</div>
+    <h2>期待できる効果</h2>
+    <div class="kpi">
+      <div class="card"><div class="big">予約 <small>導線</small></div><p style="margin-top:8px">常時表示の予約ボタンで、離脱前のワンタップ予約を最大化</p></div>
+      <div class="card"><div class="big">応募 <small>0→1</small></div><p style="margin-top:8px">これまで拾えなかった採用問い合わせの受け皿を新設</p></div>
+      <div class="card"><div class="big">検索 <small>MEO</small></div><p style="margin-top:8px">「新宿御苑前 美容室」等の地図・検索流入を底上げ</p></div>
+    </div>
+    <div class="callout" style="margin-top:20px">
+      現行の良質な内容（マンツーマン・明朗料金・好立地）を、<b>白基調の見やすいデザイン</b>と<b>迷わせない導線</b>で正しく伝えることで、
+      「見て終わり」を「予約・来店・応募」という<b>行動</b>に変えることがこの計画の狙いです。
+    </div>
+  </section>
+
+</main>
+
+<footer class="doc">
+  FUSS美容室 ホームページ改善計画書 ｜ 2026-07-04 ｜ HTML / CSS / JavaScript(jQuery)
+</footer>
+
+<script>
+  // 現在地セクションをナビでハイライト（提案するスクロール連動の簡易デモ）
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+    var map = links.map(function(a){
+      var el = document.querySelector(a.getAttribute('href'));
+      return {a:a, el:el};
+    }).filter(function(x){return x.el;});
+    function onScroll(){
+      var y = window.scrollY + 90;
+      var cur = null;
+      map.forEach(function(x){ if(x.el.offsetTop <= y) cur = x; });
+      links.forEach(function(a){ a.style.background=''; a.style.color=''; });
+      if(cur){ cur.a.style.background='#f7f7f5'; cur.a.style.color='#1f2328'; }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  })();
+</script>
+
+</body>
+</html>
