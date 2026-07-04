@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>採用情報・応募フォーム｜FUSS美容室</title>
+<meta name="description" content="FUSS美容室（新宿御苑前 徒歩1分）のスタッフ募集。マンツーマンでお客様と向き合える環境です。かんたん応募フォームからお気軽にご応募ください。">
+<meta name="theme-color" content="#ffffff">
+<style>
+:root{
+  --ink:#20242a;--sub:#6b7280;--line:#eceae5;--bg:#ffffff;--soft:#f8f7f4;--soft2:#fbfaf7;
+  --gold:#b08d57;--gold-d:#96733f;--err:#c0492a;--ok:#2f7d5b;
+  --radius:14px;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.05);
+  --max:720px;--header-h:60px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 12px)}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;color:var(--ink);background:var(--bg);line-height:1.85;font-size:15px;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.icon{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+.site-header{position:sticky;top:0;z-index:60;height:var(--header-h);background:rgba(255,255,255,.9);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+.header-inner{max-width:var(--max);height:100%;margin:auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;letter-spacing:2px;font-size:18px;text-decoration:none}
+.logo span{color:var(--gold)}
+.back{text-decoration:none;color:var(--sub);font-size:13px;padding:8px 14px;border:1px solid var(--line);border-radius:999px}
+.back:hover{background:var(--soft);color:var(--ink)}
+
+.page-hero{background:linear-gradient(120deg,#23262b,#3a3f47);color:#fff;text-align:center;padding:56px 20px}
+.page-hero .kicker{color:var(--gold);font-weight:700;letter-spacing:3px;font-size:12px}
+.page-hero h1{font-size:clamp(24px,5vw,32px);margin:12px 0 10px;font-weight:800;letter-spacing:1px}
+.page-hero p{color:rgba(255,255,255,.82);margin:0 auto;max-width:520px;font-size:14px}
+
+main{max-width:var(--max);margin:auto;padding:48px 20px 90px}
+.sec-head{text-align:center;margin-bottom:26px}
+.sec-head .kicker{font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:700;display:block;margin-bottom:8px}
+.sec-head h2{font-size:24px;font-weight:800;letter-spacing:1px;margin:0}
+
+/* 募集要項 */
+.spec{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-bottom:56px}
+.spec-row{display:flex;border-bottom:1px solid var(--line)}
+.spec-row:last-child{border-bottom:none}
+.spec-row .k{flex:none;width:120px;background:var(--soft);font-weight:700;font-size:13px;padding:16px 18px;color:var(--sub)}
+.spec-row .v{padding:16px 18px;font-size:14px}
+@media(max-width:520px){.spec-row{flex-direction:column}.spec-row .k{width:auto}}
+
+/* フォーム */
+.formcard{border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);background:var(--soft2)}
+.hp-field{position:absolute!important;left:-9999px!important;top:-9999px!important;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
+.field{margin-bottom:20px}
+.field label{display:block;font-size:14px;font-weight:700;margin-bottom:7px}
+.field label .req{color:var(--err);font-size:11px;margin-left:8px;font-weight:700}
+.field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:15px;background:#fff;transition:.15s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(176,141,87,.15)}
+.field textarea{min-height:110px;resize:vertical}
+.field .err-msg{color:var(--err);font-size:12px;margin-top:6px;display:none}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--err)}
+.field.invalid .err-msg{display:block}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--sub);background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.consent input{width:auto;margin-top:4px;flex:none}
+.btn-submit{width:100%;background:var(--gold);color:#fff;border:none;padding:15px;border-radius:999px;font-weight:800;font-size:16px;cursor:pointer;transition:.2s;margin-top:8px;letter-spacing:1px}
+.btn-submit:hover{background:var(--gold-d)}
+.btn-submit:disabled{opacity:.6;cursor:default}
+.form-foot{font-size:12px;color:var(--sub);margin-top:14px;text-align:center}
+
+/* 送信完了 */
+.thanks{display:none;text-align:center;border:1px solid var(--line);border-radius:var(--radius);padding:44px 26px;box-shadow:var(--shadow)}
+.thanks .ic{font-size:44px;margin-bottom:10px}
+.thanks h3{margin:0 0 10px;font-size:20px}
+.thanks p{color:var(--sub);margin:0 auto;max-width:420px;font-size:14px}
+.thanks .btn-white{display:inline-block;margin-top:22px;background:var(--ink);color:#fff;text-decoration:none;padding:12px 26px;border-radius:999px;font-weight:700}
+
+.setup-note{background:#fff8ee;border:1px solid #f0e2c8;border-radius:12px;padding:14px 16px;font-size:12px;color:#8a6d33;margin-bottom:26px;line-height:1.7}
+.setup-note code{background:#fff;padding:1px 6px;border-radius:5px;border:1px solid #ecdcbb}
+
+footer.site-footer{background:var(--soft2);border-top:1px solid var(--line);text-align:center;padding:28px 20px;color:var(--sub);font-size:12px}
+footer.site-footer a{text-decoration:none;color:var(--sub)}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="fuss.html#top" class="logo">FU<span>SS</span></a>
+    <a href="fuss.html" class="back">← トップへ戻る</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <span class="kicker">RECRUIT</span>
+  <h1>スタッフ募集</h1>
+  <p>マンツーマンでじっくりお客様と向き合える環境で、あなたの技術と個性を活かしませんか。</p>
+</div>
+
+<main>
+  <!-- 募集要項 -->
+  <div class="sec-head"><span class="kicker">REQUIREMENTS</span><h2>募集要項</h2></div>
+  <div class="spec">
+    <div class="spec-row"><div class="k">職種</div><div class="v">スタイリスト／アシスタント／業務委託</div></div>
+    <div class="spec-row"><div class="k">給与</div><div class="v">経験・能力を考慮のうえ決定します（面談時にご相談）</div></div>
+    <div class="spec-row"><div class="k">勤務時間</div><div class="v">10:00〜19:00（日祝は〜18:00）／火曜定休</div></div>
+    <div class="spec-row"><div class="k">勤務地</div><div class="v">新宿御苑前駅 徒歩1分（新宿区新宿1-20-6 石原共同ビル1F）</div></div>
+    <div class="spec-row"><div class="k">歓迎</div><div class="v">お客様一人ひとりと丁寧に向き合いたい方／幅広い年代の施術に興味がある方</div></div>
+    <div class="spec-row"><div class="k">応募方法</div><div class="v">下記フォーム、またはお電話（050-8887-4922）にてお気軽にご連絡ください。</div></div>
+  </div>
+
+  <!-- 応募フォーム -->
+  <div class="sec-head"><span class="kicker">APPLICATION</span><h2>応募フォーム</h2></div>
+
+  <div class="setup-note">
+    <svg class="icon" width="15" height="15" viewBox="0 0 24 24" style="vertical-align:-2px"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    <b>公開前の設定：</b>このフォームはそのままでもメーラー送信（mailto）で動作します。フォームサービスに切り替える場合は、下部 <code>&lt;script&gt;</code> の <code>FORM_ENDPOINT</code> に送信先URL（例：Formspree）を設定してください。空のままなら自動でメーラー送信になります。
+  </div>
+
+  <form id="applyForm" class="formcard" novalidate>
+    <!-- スパム対策：botだけが入力する隠しフィールド（人間には非表示） -->
+    <div class="hp-field" aria-hidden="true">
+      <label>この項目は入力しないでください</label>
+      <input type="text" name="website" tabindex="-1" autocomplete="off">
+    </div>
+
+    <div class="field" data-field>
+      <label>お名前<span class="req">必須</span></label>
+      <input type="text" name="name" placeholder="山田 花子" autocomplete="name" maxlength="50">
+      <div class="err-msg">お名前をご入力ください。</div>
+    </div>
+    <div class="field" data-field>
+      <label>電話番号<span class="req">必須</span></label>
+      <input type="tel" name="tel" placeholder="090-0000-0000" autocomplete="tel" inputmode="tel" maxlength="20">
+      <div class="err-msg">正しい電話番号をご入力ください。</div>
+    </div>
+    <div class="field" data-field data-type="email">
+      <label>メールアドレス<span class="req">必須</span></label>
+      <input type="email" name="email" placeholder="example@mail.com" autocomplete="email" inputmode="email" maxlength="100">
+      <div class="err-msg">正しいメールアドレスをご入力ください。</div>
+    </div>
+    <div class="field">
+      <label>応募職種</label>
+      <select name="position">
+        <option>スタイリスト</option>
+        <option>アシスタント</option>
+        <option>業務委託</option>
+        <option>その他・未定</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>ご経験・メッセージ</label>
+      <textarea name="message" placeholder="経験年数・保有資格・希望条件・ご質問など、ご自由にご記入ください。" maxlength="1000"></textarea>
+    </div>
+    <div class="field" data-field data-type="check">
+      <label class="consent">
+        <input type="checkbox" name="consent">
+        <span>ご入力いただいた個人情報は、採用選考および連絡の目的にのみ利用します。上記に同意します。<span class="req">必須</span></span>
+      </label>
+      <div class="err-msg">個人情報の取り扱いへの同意が必要です。</div>
+    </div>
+    <button type="submit" class="btn-submit">応募内容を送信する</button>
+    <p class="form-foot">送信後、担当者よりご連絡いたします。お急ぎの方はお電話（050-8887-4922）でも承ります。</p>
+  </form>
+
+  <!-- 送信完了 -->
+  <div id="thanks" class="thanks">
+    <div class="ic"><svg class="icon" width="52" height="52" viewBox="0 0 24 24" style="stroke:var(--ok);stroke-width:2.2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+    <h3>応募を受け付けました</h3>
+    <p>この度はご応募いただきありがとうございます。内容を確認のうえ、担当者よりご連絡いたします。</p>
+    <a href="fuss.html" class="btn-white">トップへ戻る</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="fuss.html">FUSS美容室 トップ</a> ｜ © FUSS美容室</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+/* =========================================================
+   応募フォーム
+   公開時の設定：
+   ・フォームサービス（例 Formspree）を使う場合は下の
+     FORM_ENDPOINT にエンドポイントURLを設定してください。
+     例) var FORM_ENDPOINT = "https://formspree.io/f/xxxxxxx";
+   ・RECIPIENT はmailto送信時の宛先（お店のメール）です。
+   ========================================================= */
+var FORM_ENDPOINT = "https://formsubmit.co/ajax/yamada5317@gmail.com";  // FormSubmit（初回のみ確認メールで有効化が必要）
+var RECIPIENT    = "yamada5317@gmail.com";      // ← mailto送信時の宛先（お店の受信メール）
+
+/* --- セキュリティ関連の設定 --- */
+var MIN_FILL_MS   = 3000;    // これより速い送信はbotとみなす（人が入力するのに最低かかる時間）
+var COOLDOWN_MS   = 60000;   // 連続送信の防止：前回送信からこの時間は再送信不可
+var COOLDOWN_KEY  = 'fuss_apply_last';
+
+$(function(){
+  var $form   = $('#applyForm');
+  var loadedAt = Date.now();   // フォーム表示時刻（time-trap用）
+  var sending  = false;        // 二重送信ガード
+
+  /* 入力値のサニタイズ：
+     制御文字・改行・山括弧を除去し、長さも制限。
+     ヘッダーインジェクション(CRLF)やmailto/HTMLへの混入を防ぐ。 */
+  function sanitize(str, max){
+    return String(str == null ? '' : str)
+      .replace(/[\x00-\x1F\x7F]/g, " ")          // 制御文字(control chars) -> space
+      .replace(/[<>]/g, '')                     // 山括弧を除去
+      .replace(/\s+/g, ' ')                      // 連続空白を圧縮
+      .trim()
+      .slice(0, max || 200);
+  }
+  // 複数行を許容するフィールド（メッセージ）用：改行は残すが制御文字と山括弧は除去
+  function sanitizeMultiline(str, max){
+    return String(str == null ? '' : str)
+      .replace(/\r\n?/g, '\n')
+      .replace(/[\x00-\x09\x0B-\x1F\x7F]/g, "") // keep \n only, strip other control chars
+      .replace(/[<>]/g, '')
+      .trim()
+      .slice(0, max || 1000);
+  }
+
+  function validate(){
+    var ok = true;
+    $form.find('[data-field]').each(function(){
+      var $f = $(this), type = $f.data('type'), valid = true;
+      if(type === 'check'){
+        valid = $f.find('input[type=checkbox]').is(':checked');
+      } else {
+        var v = $.trim($f.find('input').val() || '');
+        valid = v.length > 0;
+        if(valid && type === 'email'){
+          valid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) && v.length <= 100;
+        }
+        if(valid && $f.find('[name=tel]').length){
+          valid = /^[0-9+\-()\s]{8,20}$/.test(v);   // 数字・記号のみ、桁数チェック
+        }
+      }
+      $f.toggleClass('invalid', !valid);
+      if(!valid) ok = false;
+    });
+    return ok;
+  }
+
+  // 入力し直したらエラー解除
+  $form.on('input change', '[data-field] input', function(){
+    $(this).closest('[data-field]').removeClass('invalid');
+  });
+
+  function showThanks(){
+    $form.hide();
+    $('#thanks').fadeIn(250);
+    $('html,body').animate({scrollTop:$('#thanks').offset().top - 80}, 300);
+  }
+
+  $form.on('submit', function(e){
+    e.preventDefault();
+    if(sending) return;                       // 二重送信ガード
+
+    // --- botチェック1：ハニーポット（人間は空のはず） ---
+    if($.trim($form.find('[name=website]').val() || '') !== ''){
+      showThanks();                           // botには成功したように見せて破棄
+      return;
+    }
+    // --- botチェック2：time-trap（速すぎる送信を弾く） ---
+    if(Date.now() - loadedAt < MIN_FILL_MS){
+      showThanks();
+      return;
+    }
+    // --- 連続送信の防止（クールダウン） ---
+    var last = parseInt(localStorage.getItem(COOLDOWN_KEY) || '0', 10);
+    if(last && (Date.now() - last) < COOLDOWN_MS){
+      alert('送信は完了しています。重複送信を防ぐため、しばらく経ってから再度お試しください。');
+      return;
+    }
+
+    if(!validate()){
+      $form.find('.invalid').first().find('input').trigger('focus');
+      return;
+    }
+
+    // 入力値をサニタイズしてから利用
+    var data = {
+      name:     sanitize($form.find('[name=name]').val(), 50),
+      tel:      sanitize($form.find('[name=tel]').val(), 20),
+      email:    sanitize($form.find('[name=email]').val(), 100),
+      position: sanitize($form.find('[name=position]').val(), 20),
+      message:  sanitizeMultiline($form.find('[name=message]').val(), 1000)
+    };
+
+    sending = true;
+    localStorage.setItem(COOLDOWN_KEY, String(Date.now()));
+
+    if(FORM_ENDPOINT){
+      // ---- フォームサービス送信（サーバーレス）----
+      var $btn = $form.find('.btn-submit').prop('disabled',true).text('送信中…');
+      $.ajax({
+        url: FORM_ENDPOINT, method:'POST', dataType:'json',
+        headers:{'Accept':'application/json'}, data:data
+      }).done(showThanks).fail(function(){
+        alert('送信に失敗しました。お手数ですが、お電話（050-8887-4922）にてご連絡ください。');
+        $btn.prop('disabled',false).text('応募内容を送信する');
+        sending = false;
+        localStorage.removeItem(COOLDOWN_KEY);
+      });
+    } else {
+      // ---- mailto送信（設定不要で動作）----
+      // subjectは1行のみ（CRLF除去済み）にしてヘッダーインジェクションを防止
+      var subject = sanitize('【採用応募】' + data.name + ' 様（' + data.position + '）', 120);
+      var body =
+        'お名前：' + data.name + '\n' +
+        '電話番号：' + data.tel + '\n' +
+        'メール：' + data.email + '\n' +
+        '応募職種：' + data.position + '\n' +
+        '------------------------------\n' +
+        (data.message || '（メッセージなし）') + '\n';
+      $form.find('.btn-submit').prop('disabled',true).text('送信中…');
+      window.location.href = 'mailto:' + encodeURIComponent(RECIPIENT) +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(body);
+      // メーラー起動後、完了表示に切り替え
+      setTimeout(showThanks, 600);
+    }
+  });
+});
+</script>
+
+</body>
+</html>
