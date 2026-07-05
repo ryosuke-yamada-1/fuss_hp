@@ -215,7 +215,9 @@ footer.site-footer .fnav a:hover{color:var(--ink)}
 
 @media(max-width:820px){
   .features,.info-grid{grid-template-columns:1fr}
-  .pc-nav a:not(.reserve){display:none}
+  .pc-nav a:not(.reserve):not(.recruit){display:none}
+  .pc-nav a.recruit{padding:7px 10px;font-size:12px}
+  .pc-nav a.reserve{padding:8px 14px;font-size:12px;margin-left:4px}
   .mobile-tab{display:grid}
   body{padding-bottom:72px}
   .hero{padding:72px 20px 64px}
