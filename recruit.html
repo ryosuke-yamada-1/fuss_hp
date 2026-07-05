@@ -102,7 +102,7 @@ footer.site-footer a{text-decoration:none;color:var(--sub)}
     <div class="spec-row"><div class="k">勤務時間</div><div class="v">10:00〜19:00（日祝は〜18:00）／火曜定休</div></div>
     <div class="spec-row"><div class="k">勤務地</div><div class="v">新宿御苑前駅 徒歩1分（新宿区新宿1-20-6 石原共同ビル1F）</div></div>
     <div class="spec-row"><div class="k">歓迎</div><div class="v">お客様一人ひとりと丁寧に向き合いたい方／幅広い年代の施術に興味がある方</div></div>
-    <div class="spec-row"><div class="k">応募方法</div><div class="v">下記フォーム、またはお電話（050-8887-4922）にてお気軽にご連絡ください。</div></div>
+    <div class="spec-row"><div class="k">応募方法</div><div class="v">下記フォーム、またはお電話（03-3350-6371）にてお気軽にご連絡ください。</div></div>
   </div>
 
   <!-- 応募フォーム -->
@@ -156,7 +156,7 @@ footer.site-footer a{text-decoration:none;color:var(--sub)}
       <div class="err-msg">個人情報の取り扱いへの同意が必要です。</div>
     </div>
     <button type="submit" class="btn-submit">応募内容を送信する</button>
-    <p class="form-foot">送信後、担当者よりご連絡いたします。お急ぎの方はお電話（050-8887-4922）でも承ります。</p>
+    <p class="form-foot">送信後、担当者よりご連絡いたします。お急ぎの方はお電話（03-3350-6371）でも承ります。</p>
   </form>
 
   <!-- 送信完了 -->
@@ -294,7 +294,7 @@ $(function(){
         url: FORM_ENDPOINT, method:'POST', dataType:'json',
         headers:{'Accept':'application/json'}, data:data
       }).done(showThanks).fail(function(){
-        alert('送信に失敗しました。お手数ですが、お電話（050-8887-4922）にてご連絡ください。');
+        alert('送信に失敗しました。お手数ですが、お電話（03-3350-6371）にてご連絡ください。');
         $btn.prop('disabled',false).text('応募内容を送信する');
         sending = false;
         localStorage.removeItem(COOLDOWN_KEY);
